@@ -50,7 +50,7 @@ def encode_txt(txt) :
 
 
 # 0 - hate speech 1 - offensive language 2 - neither
-Labels = ["Negative comment", "Positive comment"]
+Labels = ["negative comment", "positive comment"]
 model = joblib.load("model/rnn_sentiment.joblib.z")
 
 
