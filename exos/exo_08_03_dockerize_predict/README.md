@@ -13,4 +13,4 @@ Par la suite, on doit avoir accès à une page web à l'adresse localhost:5000, 
 Cependant, l'étape 'build' ne marche pas correctement. On obtient l'erreur : 
 ValueError: Layer 'embedding' expected 1 variables, but received 0 variables during loading. Names of variables received: []
 
-Cette erreur se déroule durant le chargement du modèle, mais celui-ci marche correctement quand il est lu par 
+Cette erreur se déroule durant le chargement du modèle, mais celui-ci marche correctement quand il est lu sur mon répertoire local.
