@@ -1,0 +1,16 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="jumbotron" style="background-color:#1daeff !important;">
+    <h2 style="color:#fff;">Your classification results </h2>  
+  </div>
+    <ul>
+      <li>Hate speech : {{ probas[0] }} </li>
+      <li>Offensive language : {{ probas[1] }} </li>
+      <li>Neither : {{ probas[2] }} </li>
+    </ul>
+</div>
+
+{% endblock %}
+
