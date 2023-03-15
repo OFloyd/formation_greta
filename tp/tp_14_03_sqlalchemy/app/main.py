@@ -7,7 +7,7 @@ from sqlalchemy.ext.automap import automap_base
 app = FastAPI()
 
 # create the database engine
-engine = create_engine("mysql://root:root@localhost:3306/employees")
+engine = create_engine("mysql://root:pass@localhost:3306/employees")
 
 # reflect the database schema to an ORM base
 Base = automap_base()
