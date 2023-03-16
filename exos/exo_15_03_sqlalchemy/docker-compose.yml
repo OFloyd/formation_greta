@@ -23,7 +23,7 @@ services:
     container_name: app
     restart: always
     ports:
-      - "80:80"
+      - "100:80"
     depends_on:
       - db
     environment:
