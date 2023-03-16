@@ -1,0 +1,55 @@
+docker pull mysql
+
+docker volume create vol_db
+
+docker run --rm --name mysql-container -v vol_db:/volume -e MYSQL_ROOT_PASSWORD=pass -dp 3306:3306 mysql 
+
+winpty docker exec -it mysql-container mysql -p
+
+
+
+
+docker build -t my-mysql-image .
+
+docker volume create mysql
+docker volume create mysql_config
+
+docker run --rm -v mysql:/var/lib/mysql -v mysql_config:/etc/mysql --name mysql-container -dp 3306:3306 -e MYSQL_ROOT_PASSWORD=pass my-mysql-image
+
+docker exec -it mysql-container /bin/bash
+
+
+
+
+
+docker run --name mysql-container -d -p 3306:3306 my-mysql-image
+
+
+
+
+
+à voir plus tard : 
+
+docker pull mysql
+
+docker volume create mysql
+docker volume create mysql_config
+
+docker network create mysqlnet
+
+docker run --rm -d -v mysql:/var/lib/mysql \
+  -v mysql_config:/etc/mysql -p 3306:3306 \
+  --network mysqlnet \
+  --name mysql-container \
+  -e MYSQL_ROOT_PASSWORD=pass \
+  mysql
+
+
+winpty docker exec -it mysql-container mysql -p
+
+
+
+
+
+
+

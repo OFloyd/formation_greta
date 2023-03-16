@@ -132,10 +132,13 @@ dmypy.json
 #Others : 
 doc/
 *.csv
+*.json
 *.npy
 */*.csv
+*/*.json
 */*.npy
 */*/*.csv
 */*/*.npy
 */**/*.csv
+*/**/*.json
 */**/*.npy
