@@ -13,8 +13,9 @@ import sklearn
 import re
 import numpy as np
 
+import folium
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates', )
 bootstrap=Bootstrap(app)
 
 
@@ -67,6 +68,7 @@ def get_station_info(station_info: object, station_id: str):
 station_info=pd.read_json('stations_info.json').data[0]
 
 
+model_dict = joblib.load("model/velib_model_all.joblib.z")
 
 
 LABELS = ["Class 0", "Class 1","Class 2","Class 3","Class 4"]
@@ -81,20 +83,30 @@ def hello():
 def predict():
     if request.method == 'POST':
 
+        station_id=''
+        # station_id = request.form['stationquery']
+        station_id = request.form['stationquery']
+
+        time_str = request.form['namequery']   
+        if time_str == '':
+            time_str = "2023-03-23T12:00"
+
 #
-        station_int=11437761399
-        station_id='11437761399'
+        # station_int=11437761399
+        if station_id =='':
+            station_id='11437761399'
+        station_int=int(station_id)
         
         name, lat, lon = get_station_info(station_info, station_int)
         
         
         #Rajouter une version dans le fichier du modèle, peut-être? Certaines fonctions
         # (format_predict_input) sont écrites pour un ensemble de features spécifique.
-        model_name='velib_model_'+station_id+'.joblib.z'
-        model = joblib.load("model/"+model_name)
+        model_name='velib_model_11437761399.joblib.z'
+        # model_name='velib_model_'+station_id+'.joblib.z'
+        # model = joblib.load("model/"+model_name)
+        model = model_dict[station_int]
         
-
-
 #
 
         # On récupère le champ namequery du template index
@@ -110,11 +122,11 @@ def predict():
         classif=predict_occup(model,x_test)
         
         my_list=[(name, station_id, str(0), classif, "", ""),
-                 (name, station_id, str(0), classif, "", ""),
-                 (name, station_id, str(0), classif, "", "")]
+                  (name, station_id, str(0), classif, "", ""),
+                  (name, station_id, str(0), classif, "", "")]
         
         # Render the response in the result.html template
-        return render_template('index.html', my_list=my_list)
+        return render_template('index.html', my_list=my_list, hour1=time_str[11:16])
                                
 
 
@@ -125,6 +137,24 @@ def predict():
 
     else :
         return render_template('index.html')
+
+
+
+@app.route("/iframe")
+def iframe():
+    """Embed a map as an iframe on a page."""
+    m = folium.Map(location=[48.856614, 2.3522219], 
+        zoom_start=12, )
+
+    # set the iframe width and height
+    m.get_root().width = "800px"
+    m.get_root().height = "600px"
+    iframe = m.get_root()._repr_html_()
+
+    return render_template( 'index.html' ,    iframe=iframe     )
+
+
+
 
 
 
