@@ -15,6 +15,8 @@ import numpy as np
 
 import folium
 
+import sys
+
 app = Flask(__name__, template_folder='templates', )
 bootstrap=Bootstrap(app)
 
@@ -72,6 +74,9 @@ model_dict = joblib.load("model/velib_model_all.joblib.z")
 
 
 LABELS = ["Class 0", "Class 1","Class 2","Class 3","Class 4"]
+
+
+# station_info=station_info[station_info['station_id'].isin([1062223873, 85008390, 653197324, 216039437, 653123610])]
 
 
 
@@ -149,6 +154,25 @@ def iframe():
     # set the iframe width and height
     m.get_root().width = "800px"
     m.get_root().height = "600px"
+
+    # for k,v in station_info.iterrows():
+    for v in station_info:
+        # if not v['station_id'] in [1062223873, 85008390, 653197324, 216039437, 653123610] :
+            # continue
+
+        folium.CircleMarker(
+            # location = [v.lat, v.lon],
+            location = [v['lat'], v['lon']],
+            # color = "#000000",
+            weight = 2,
+            # fill_color = red(abs(v.y_test/100)).hex,
+            fill_opacity = 1.0,
+            # popup = str(v.y_test) + " % ",
+            popup = "Station "+str(v['station_id']),
+            radius = 5
+        ).add_to(m)
+
+
     iframe = m.get_root()._repr_html_()
 
     return render_template( 'index.html' ,    iframe=iframe     )

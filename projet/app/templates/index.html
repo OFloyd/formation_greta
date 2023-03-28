@@ -10,26 +10,12 @@
   
   <!--<script type="module" src="./js/map_clic.js"></script> -->
   
-  <script>
-    window.addEventListener('load', function() {
-	console.log('starting the window listening')
-      var iframe = document.getElementById('map');
-    //  iframe.addEventListener('load', function() {
-     //   var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        console.log('Checking for mouse click')
-     //   iframeDocument.addEventListener('click', function() {
-        iframe.addEventListener('click', function() {
-     
-          console.log('The iframe was clicked!');
-        });
-    //  });
-    });
-  </script>
+
   
 </head>
 <body>
 		
-<div class="container">
+<div class="container" name="title">
   <div class="jumbotron" style="background-color:#1daeff !important;">
     <h2 style="color:#fff;">Meteo velib</h2>      
   </div>
@@ -76,8 +62,36 @@
            <iframe id="map" {{ iframe|safe }} ></iframe>     
 			
 
-	
-		  
+	  <script>
+    
+    
+    function onIframeClick() {
+    console.log("iframe clicked");
+	iframe.innerHTML = `Nombre de clics : ${event.detail}`
+}
+    var iframe = document.getElementById("title");
+        iframe.addEventListener("click", onIframeClick);
+
+
+    window.addEventListener('load', function() {
+    	console.log('starting the window listening') ;
+        var iframe = document.getElementById("map");
+        iframe.addEventListener("click", onIframeClick);
+    })
+  </script>
+
+              <button id='button'>test listener</button>
+        
+            <script>
+                <!-- const button = document.querySelector('button'); -->
+				const button = document.getElementById('button');
+button.addEventListener('click', event => {
+console.log("button clicked");
+  button.innerHTML = `Nombre de clics : ${event.detail}`;
+});
+
+            </script>
+  
 		  
     </div>
 </div>
