@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        
+            <button id='button'>Cliquer ici</button>
+
+        
+        
+            <script>
+                <!-- const button = document.querySelector('button'); -->
+				const button = document.getElementById('button');
+button.addEventListener('click', event => {
+  button.innerHTML = `Nombre de clics : ${event.detail}`;
+});
+
+            </script>
+        
+    </body>
+</html>

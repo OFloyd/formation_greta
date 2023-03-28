@@ -21,9 +21,20 @@
   </div>
 </div>
 
+
 <div class="panel-group">
     <div class="panel panel-primary">
-      <div class="panel-heading" style="background-color:#1563ff ">Veuillez choisir un temps de départ</div>
+      <div class="panel-heading" style="background-color:#1563ff ">Disponibilité actuelle des stations</div>
+	  <!-- <img src="C:/Users/Olivier/greta/data/projet/app/templates/realoccupation_2023_03_21.gif" height="200px" -->
+	  <img src="./realoccupation_2023_03_21.gif" height="292px" width="520px" ></img>   
+	</div>
+</div>
+
+
+
+<div class="panel-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading" style="background-color:#1563ff ">Choisissez un temps de départ</div>
       <div class="panel-body">
       
 <!-- Main Input For Receiving Query to our ML -->	
@@ -47,9 +58,9 @@
 
 <div class="panel-group">
     <div class="panel panel-primary">
-      <div class="panel-heading" style="background-color:#1563ff ">Veuillez choisir une station de départ</div>
+      <div class="panel-heading" style="background-color:#1563ff ">Choisissez une station de départ</div>
       <div class="panel-body">
-          <button type="submit" class="btn btn-primary">Près de moi</button>
+          <button type="submit" class="btn btn-primary">Près de moi</button> <li> Prends une position aléatoire pour le moment
 <!--           
           <form action="{{ url_for('predict')}}" method="POST">
               <input type="text" name="stationquery">
@@ -59,77 +70,14 @@
           
           <br>
           	
-           <iframe id="map" {{ iframe|safe }} ></iframe>     
+		
+             
 			
 
-	  <script>
-    
-    
-    function onIframeClick() {
-    console.log("iframe clicked");
-	iframe.innerHTML = `Nombre de clics : ${event.detail}`
-}
-    var iframe = document.getElementById("title");
-        iframe.addEventListener("click", onIframeClick);
-
-
-    window.addEventListener('load', function() {
-    	console.log('starting the window listening') ;
-        var iframe = document.getElementById("map");
-        iframe.addEventListener("click", onIframeClick);
-    })
-  </script>
-
-              <button id='button'>test listener</button>
-        
-            <script>
-                <!-- const button = document.querySelector('button'); -->
-				const button = document.getElementById('button');
-button.addEventListener('click', event => {
-console.log("button clicked");
-  button.innerHTML = `Nombre de clics : ${event.detail}`;
-});
-
-            </script>
-  
 		  
     </div>
 </div>
     
-
-<div class="panel-group">
-    <div class="panel panel-primary">
-        <div class="panel-heading" style="background-color:#1563ff ">Stations de départ suggérées:</div>
-        <div class="panel-body">
-	
-	
-
-
-            <table style="width:100%">
-                <tr>
-                    <th>Nom de station</th>
-                    <th>Identifiant </th>
-                    <th>Distance</th>
-                    <th>Disponibilité à {{hour1}}</th>
-                    <th>State at time 2</th>
-                    <th>State at time 3</th>
-                </tr>  
-                 {% for item in my_list %}
-                  <tr>
-                    <td>{{ item[0] }}</td>
-                    <td>{{ item[1] }}</td>
-                    <td>{{ item[2] }}</td>
-                    <td>{{ item[3] }}</td>
-                    <td>{{ item[4] }}</td>
-                    <td>{{ item[5] }}</td>
-                  </tr>
-                  {% endfor %}
-              
-            </table>
-
-        </div>
-    </div>
-</div>
 
 </body>
 
