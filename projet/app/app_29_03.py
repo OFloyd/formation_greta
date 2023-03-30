@@ -226,9 +226,12 @@ model_dict = joblib.load("model/velib_model_all.joblib.z")
 def hello():
     return render_template('index.html')
 
-@app.route('/predict', methods=['GET','POST','PUT'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     if request.method == 'POST':
+
+        # station_id = request.form['stationquery']
+        # station_id = request.form['stationquery']
 
         # On récupère le champ namequery du template index
         # format : text="2023-03-23T12:00"
@@ -241,8 +244,11 @@ def predict():
         # l'utilisateur à base de latitude/longitude
         lat_u=random.uniform(48.8,48.9)
         lon_u=random.uniform(2.3,2.4)
+        # print(lat_u, lon_u)
         selected_station=get_station_close(lat_u, lon_u)
 #
+        
+
 
         #We generate the list "my_list" that is used to create the tables in
         # the html by looping on each selected station
@@ -250,7 +256,9 @@ def predict():
         for station in selected_station :
             my_list.append(get_table_line(station, time_str))
 
-
+        
+        
+        # iframe=get_iframe()
         iframe=get_iframe(lat_u, lon_u, 16, time_str)
         
         # Render the response in the result.html template
@@ -262,32 +270,14 @@ def predict():
     elif request.method == 'GET':
         return render_template('index.html')
 
-    elif request.method == 'PUT':
-        # Retrieve parameters from the request body
-        lat = request.args.get('lat')
-        lon = request.args.get('lon')
-        time_str = request.args.get('time_str')
-    
-        if not lat or not lon or not time_str:
-            # Return an error response if any parameter is missing
-            return jsonify(error='Missing required parameter'), 400
-    
-        #We generate the list "my_list" that is used to create the tables in
-        # the html by looping on each selected station
-        selected_station=get_station_close(float(lat), float(lon))
-        my_list=[]
-        for station in selected_station :
-            my_list.append(get_table_line(station, time_str))
-    
-        iframe=get_iframe(float(lat), float(lon), 16, time_str)
-    
-        # Render the response in the result.html template
-        return render_template('predict.html', my_list=my_list, hour1=time_str[11:16], iframe=iframe)                               
-    
-
 
     else :
         return render_template('index.html')
+
+
+
+
+
 
 
 
